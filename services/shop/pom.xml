@@ -1,0 +1,138 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.alma.services</groupId>
+    <artifactId>shop</artifactId>
+
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Shop-Service</name>
+
+    <packaging>jar</packaging>
+
+	<repositories>
+        <repository>
+            <id>wso2-Nexus</id>
+            <name>WSO2 Repository</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <axis2_version>1.6.1-wso2v14</axis2_version>
+    </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>wso2-Nexus</id>
+            <name>WSO2 Repository</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/releases/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                <version>${axis2_version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsdl2code</goal>
+                        </goals>
+                    </execution>
+                </executions>
+<!--                 <configuration>
+                    <outputDirectory>${basedir}/generated-sources</outputDirectory>
+                    <databindingName>adb</databindingName><portName>BankHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://192.168.2.2:9763/services/Bank?wsdl</wsdlFile>
+                </configuration> -->
+                <configuration>
+                    <outputDirectory>${basedir}/generated-sources</outputDirectory>
+                    <databindingName>adb</databindingName><portName>SupplierHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://192.168.2.2:9763/services/Supplier?wsdl</wsdlFile>
+                </configuration>                
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/generated-sources/src</source>
+                                <source>${basedir}/generated-sources/test</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.alma.services.client.Client</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <compilerArgument></compilerArgument>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2</artifactId>
+            <version>${axis2_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-adb</artifactId>
+            <version>${axis2_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-http</artifactId>
+            <version>${axis2_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-local</artifactId>
+            <version>${axis2_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.2</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>    
+</project>

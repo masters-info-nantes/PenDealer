@@ -1,3 +1,5 @@
+package org.alma.services.supplier;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,23 +34,23 @@ public class Supplier {
 		this.stockNewProduct(markers, 6);
 	}
 
-	public List<Product> getProductsList(){
+	public List<Product> GetProductsList(){
 		return new ArrayList<Product>(this.products.values());
 	}
 
-	public int getProductAvailability(String productReference){
+	public int GetProductAvailability(String productReference){
 		return this.stocks.get(productReference);
 	}
 
-	public int getProductPrice(String productReference){
+	public int GetProductPrice(String productReference){
 		return this.products.get(productReference).getPrice();
 	}
 
-	public String getProductDetails(String productReference){
+	public String GetProductDetails(String productReference){
 		return this.products.get(productReference).getDetails();
 	}
 
-	public boolean orderProduct(String productReference, int quantity){
+	public boolean OrderProduct(String productReference, int quantity){
 		int remainingStock = this.stocks.get(productReference) - quantity;
 
 		if(remainingStock >= 0){

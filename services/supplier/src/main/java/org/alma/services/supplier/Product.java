@@ -1,3 +1,5 @@
+package org.alma.services.supplier;
+
 /*
 	Product stocked by the supplier
 */

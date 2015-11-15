@@ -8,6 +8,8 @@ $ mvn compile exec:java
 ## Compile services
 
 ```
-$ cd supplier
-$ javac *.java && jar cf Supplier.jar *.class
+$ cd services 
+
+# For each service to get .jar file
+$ mvn package 
 ```

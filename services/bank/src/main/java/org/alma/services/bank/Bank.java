@@ -1,7 +1,8 @@
+package org.alma.services.bank;
+
 /*
 	The bank manage the client's bank account
 */
-
 public class Bank {
 
 	private int credit = 25;
