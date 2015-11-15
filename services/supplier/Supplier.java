@@ -1,3 +1,9 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import java.util.List;
+import java.util.Map;
+
 /*
 	The Supplier owns stocks of pens 
 */
@@ -15,10 +21,10 @@ public class Supplier {
 		// http://www.walmart.com/ip/Paper-Mate-Mirado-Woodcase-Pencils-2-Lead-72-Count/14150582				
 		// http://www.walmart.com/ip/30-K-3rd-Grade-Starter-School-Supplies-Bundle/13432790
 
-		Product ballPen = new Product("RBP5", "Roller Ball Pen", "Write clear, colorful documents with this pen");
-		Product coloredPencils = new Product("CP2", "Colored Pencils", "Give your next art project more vibrant colors");
-		Product woodPencils = new Product("WP8", "Woodcase Pencils", "They sharpen to a fine exact point for smooth writing");		
-		Product markers = new Product("PM6", "Permanent Markers", "Make a bold statement with a rainbow of colors");
+		Product ballPen = new Product("RBP5", "Roller Ball Pen", "Write clear, colorful documents with this pen", 12);
+		Product coloredPencils = new Product("CP2", "Colored Pencils", "Give your next art project more vibrant colors", 7);
+		Product woodPencils = new Product("WP8", "Woodcase Pencils", "They sharpen to a fine exact point for smooth writing", 8);		
+		Product markers = new Product("PM6", "Permanent Markers", "Make a bold statement with a rainbow of colors", 5);
 
 		this.stockNewProduct(ballPen, 5);
 		this.stockNewProduct(coloredPencils, 2);
@@ -27,7 +33,7 @@ public class Supplier {
 	}
 
 	public List<Product> getProductsList(){
-		return this.products.values();
+		return new ArrayList<Product>(this.products.values());
 	}
 
 	public int getProductAvailability(String productReference){
@@ -54,7 +60,7 @@ public class Supplier {
 	}
 
 	private void stockNewProduct(Product product, int quantity){
-		this.productsDetails.put(product.getReference(), product);
+		this.products.put(product.getReference(), product);
 		this.stocks.put(product.getReference(), quantity);
 	}
 }

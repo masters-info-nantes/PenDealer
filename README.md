@@ -1,6 +1,6 @@
-## Compiler
+## Compile
 
 ```
-$ javac -d ./target/fr/univ ./src/fr/univ/*.java
-$ jar cf Service.jar ./target/fr
+$ cd supplier
+$ javac *.java && jar cf Supplier.jar *.class
 ```
