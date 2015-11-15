@@ -7,18 +7,18 @@ public class Bank {
 	private int credit = 25;
 
 	// Transfer money to the account
-	public int creditAccount(int amount){
+	public int CreditAccount(int amount){
 		this.credit += amount;
 		return this.credit;
 	}
 
 	// Consult the current credit
-	public int getCredit(){
+	public int GetCredit(){
 		return this.credit;
 	}
 
 	// Make an online payment 
-	public boolean makeOnlinePayment(int amount){
+	public boolean MakeOnlinePayment(int amount){
 		int remainingCredit = this.credit - amount;
 
 		if(remainingCredit >= 0){
