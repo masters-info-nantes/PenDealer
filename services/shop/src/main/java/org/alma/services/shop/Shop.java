@@ -1,5 +1,16 @@
 package org.alma.services.shop;
 
+import akka.actor.*;
+import akka.actor.Status.Failure;
+import akka.event.*;
+
+import eventstore.*;
+import eventstore.j.*;
+import eventstore.tcp.ConnectionActor;
+
+import java.net.InetSocketAddress;
+import java.util.UUID;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap;
@@ -21,11 +32,73 @@ public class Shop {
 
 	private Map<String, Integer> cart;
 
+	private ActorSystem esSystem;
+	private ActorRef esConnection;
+
 	public Shop() throws AxisFault {
 		this.supplier = new SupplierStub("http://192.168.2.2:9763/services/Supplier/");
 		this.bank = new BankStub("http://192.168.2.2:9763/services/Bank/");
 		this.cart = new HashMap<>();
+
+		initEventStore();		
 	}
+
+	private void initEventStore(){
+		this.esSystem = ActorSystem.create();
+
+        Settings settings = new SettingsBuilder()
+                .address(new InetSocketAddress("127.0.0.1", 2112))
+                .defaultCredentials("admin", "changeit")
+                .build();
+
+        this.esConnection = this.esSystem.actorOf(ConnectionActor.getProps(settings));
+
+        EventData event = new EventDataBuilder("my-event")
+                .eventId(UUID.randomUUID())
+                .data("my event data")
+                .metadata("my first event")
+                .build();
+
+        WriteEvents writeEvents = new WriteEventsBuilder("my-stream")
+                .addEvent(event)
+                .expectAnyVersion()
+                .build();
+
+        this.esConnection.tell(writeEvents, null);
+	}
+
+	public String readEventTest(){
+        final ActorRef readResult = this.esSystem.actorOf(Props.create(ReadResult.class));
+
+        final ReadEvent readEvent = new ReadEventBuilder("my-stream")
+                .first()
+                .resolveLinkTos(false)
+                .requireMaster(true)
+                .build();
+
+        this.esConnection.tell(readEvent, readResult);
+
+        return "coucou";
+	}
+
+    public static class ReadResult extends UntypedActor {
+        final LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+
+        public void onReceive(Object message) throws Exception {
+            if (message instanceof ReadEventCompleted) {
+                final ReadEventCompleted completed = (ReadEventCompleted) message;
+                final Event event = completed.event();
+                log.info("event: {}", event);
+            } else if (message instanceof Failure) {
+                final Failure failure = ((Failure) message);
+                final EsException exception = (EsException) failure.cause();
+                log.error(exception, exception.toString());
+            } else
+                unhandled(message);
+
+            context().system().shutdown();
+        }
+    }
 
 	public String getProductDetails(String productReference) throws AxisFault, RemoteException {
 		GetProductDetails getCall = new GetProductDetails();
