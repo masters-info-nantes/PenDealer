@@ -26,7 +26,6 @@ import java.rmi.RemoteException;
 
 public class Shop {
 
-	// TODO: Extern services, how to call them ?
 	private SupplierStub supplier;
 	private BankStub bank;
 
@@ -36,14 +35,12 @@ public class Shop {
 	private ActorRef esConnection;
 
 	public Shop() throws AxisFault {
-		this.supplier = new SupplierStub("http://192.168.2.2:9763/services/Supplier/");
-		this.bank = new BankStub("http://192.168.2.2:9763/services/Bank/");
-		this.cart = new HashMap<>();
-
-		initEventStore();		
+		this.supplier = new SupplierStub("http://localhost:9763/services/Supplier/");
+		this.bank = new BankStub("http://localhost:9763/services/Bank/");
+		this.cart = new HashMap<>();		
 	}
 
-	private void initEventStore(){
+	public String initEventStore(){
 		this.esSystem = ActorSystem.create();
 
         Settings settings = new SettingsBuilder()
@@ -52,6 +49,12 @@ public class Shop {
                 .build();
 
         this.esConnection = this.esSystem.actorOf(ConnectionActor.getProps(settings));
+
+        return "ok";
+	}
+
+	public String writeEventTest(){
+		ActorRef writeResult = this.esSystem.actorOf(Props.create(WriteResult.class));
 
         EventData event = new EventDataBuilder("my-event")
                 .eventId(UUID.randomUUID())
@@ -64,13 +67,33 @@ public class Shop {
                 .expectAnyVersion()
                 .build();
 
-        this.esConnection.tell(writeEvents, null);
+        this.esConnection.tell(writeEvents, writeResult);
+        return "write";
 	}
 
-	public String readEventTest(){
-        final ActorRef readResult = this.esSystem.actorOf(Props.create(ReadResult.class));
+    public static class WriteResult extends UntypedActor {
+        final LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
-        final ReadEvent readEvent = new ReadEventBuilder("my-stream")
+        public void onReceive(Object message) throws Exception {
+        	System.out.println("coucou");
+            if (message instanceof WriteEventsCompleted) {
+                final WriteEventsCompleted completed = (WriteEventsCompleted) message;
+                log.info("range: {}, position: {}", completed.numbersRange(), completed.position());
+            } else if (message instanceof Status.Failure) {
+                final Status.Failure failure = ((Status.Failure) message);
+                final EsException exception = (EsException) failure.cause();
+                log.error(exception, exception.toString());
+            } else
+                unhandled(message);
+
+            context().system().shutdown();
+        }
+    }
+
+	public String readEventTest(){
+        ActorRef readResult = this.esSystem.actorOf(Props.create(ReadResult.class));
+
+        ReadEvent readEvent = new ReadEventBuilder("my-stream")
                 .first()
                 .resolveLinkTos(false)
                 .requireMaster(true)
@@ -85,6 +108,7 @@ public class Shop {
         final LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
         public void onReceive(Object message) throws Exception {
+        	        	System.out.println("coucou1111");
             if (message instanceof ReadEventCompleted) {
                 final ReadEventCompleted completed = (ReadEventCompleted) message;
                 final Event event = completed.event();

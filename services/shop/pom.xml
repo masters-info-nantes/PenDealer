@@ -44,13 +44,13 @@
                 </executions>
                 <configuration>
                     <outputDirectory>${basedir}/generated-sources</outputDirectory>
-                    <databindingName>adb</databindingName><portName>BankHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://192.168.2.2:9763/services/Bank?wsdl</wsdlFile>
+                    <databindingName>adb</databindingName><portName>BankHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Bank?wsdl</wsdlFile>
                 </configuration>                
-<!--                 <configuration>
+<!--                  <configuration>
                     <outputDirectory>${basedir}/generated-sources</outputDirectory>
-                    <databindingName>adb</databindingName><portName>SupplierHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://192.168.2.2:9763/services/Supplier?wsdl</wsdlFile>
-                </configuration>   -->
-               
+                    <databindingName>adb</databindingName><portName>SupplierHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Supplier?wsdl</wsdlFile>
+                </configuration> 
+                -->
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -139,5 +139,10 @@
             <artifactId>eventstore-client_2.10</artifactId>
             <version>2.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.11</artifactId>
+            <version>2.4.0</version>
+        </dependency>        
     </dependencies>    
 </project>
