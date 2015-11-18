@@ -42,10 +42,6 @@ public class Supplier {
 		return this.stocks.get(productReference);
 	}
 
-	public int GetProductPrice(String productReference){
-		return this.products.get(productReference).getPrice();
-	}
-
 	public Product GetProduct(String productReference){
 		return this.products.get(productReference);
 	}

@@ -24,7 +24,7 @@ public class CartItem {
 		return this.quantity;
 	}
 
-	public int getTotalPrice(){
+	public double getTotalPrice(){
 		return this.quantity * this.product.getPrice();
 	}
 

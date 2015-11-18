@@ -10,6 +10,8 @@ import java.util.Map;
 import org.apache.axis2.AxisFault;
 import org.alma.services.bank.BankStub;
 import org.alma.services.bank.BankStub.*;
+import org.alma.services.bourse.BourseStub;
+import org.alma.services.bourse.BourseStub.*;
 import org.alma.services.supplier.SupplierStub;
 import org.alma.services.supplier.SupplierStub.*;
 
@@ -19,6 +21,7 @@ public class Shop {
 
 	private SupplierStub supplier;
 	private BankStub bank;
+	private BourseStub bourse;
 
 	private Map<String, CartItem> cart;
 
@@ -27,9 +30,24 @@ public class Shop {
 	public Shop() throws AxisFault {
 		this.supplier = new SupplierStub("http://localhost:9763/services/Supplier/");
 		this.bank = new BankStub("http://localhost:9763/services/Bank/");
+		this.bourse = new BourseStub("http://localhost:9763/services/Bourse/");	
 
-		this.cart = new HashMap<>();		
+		this.cart = new HashMap<String, CartItem>();
+
 		//this.eventStore = new EventStore();
+	}
+
+	private double convertPrice(double price, String currency) throws RemoteException {
+		Convert convertCall = new Convert();
+		convertCall.setCurrency(currency);
+		convertCall.setValue(price);
+
+		return this.bourse.convert(convertCall).get_return();
+	}
+
+	public String[] GetCurrencies() throws RemoteException {
+		GetCurrencies getCall = new GetCurrencies();
+		return this.bourse.getCurrencies(getCall).get_return();		
 	}
 
 	public Product GetProduct(String productReference) throws AxisFault, RemoteException {
@@ -37,7 +55,6 @@ public class Shop {
 		getCall.setProductReference(productReference);
 
 		//this.eventStore.write("getProductDetails", productReference);
-
 		return this.supplier.getProduct(getCall).get_return();
 	}
 
@@ -73,10 +90,17 @@ public class Shop {
 		return false;
 	}
 
-	public ArrayList<CartItem> GetCart() {
-		return new ArrayList<>(this.cart.values());
-	}
+	public List<CartItem> GetCart(String currency) throws RemoteException {
+		List<CartItem> items = new ArrayList<CartItem>(this.cart.values());
 
+		for(CartItem item : items){
+			Product product = item.getProduct();
+			product.setPrice(convertPrice(product.getPrice(), currency));
+		}
+
+		return items;
+	}
+	
 	public void RemoveFromCart(String productReference){
 		CartItem item = this.cart.get(productReference);
 
