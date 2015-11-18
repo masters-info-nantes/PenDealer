@@ -46,8 +46,8 @@ public class Supplier {
 		return this.products.get(productReference).getPrice();
 	}
 
-	public String GetProductDetails(String productReference){
-		return this.products.get(productReference).getDetails();
+	public Product GetProduct(String productReference){
+		return this.products.get(productReference);
 	}
 
 	public boolean OrderProduct(String productReference, int quantity){
