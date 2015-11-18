@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    
-    <link rel="icon" href="../dist/img/favicon.ico">
+    <link rel="icon" href="dist/img/favicon.ico">
+
     <title>PenDealer</title>
     
-    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../dist/css/first_template.css" rel="stylesheet">
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/first_template.css" rel="stylesheet">
   </head>
 
   <body>
@@ -25,11 +25,11 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="../index.html">Home</a></li>
-			      <li><a href="../pen.html">Pen</a></li>
-            <li><a href="../panier.html">Panier</a></li>
-			     <li><a href="../about.html">About</a></li>
-          </ul>
+            <li class="active"><a href="http://localhost:9763/shopClient/index.jsp">Home</a></li>
+			      <li><a href="http://localhost:9763/shopClient/pen.jsp">Pen</a></li>
+            <li><a href="http://localhost:9763/shopClient/panier.jsp">Panier</a></li>
+			      <li><a href="http://localhost:9763/shopClient/about.jsp">About</a></li>
+		  </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
@@ -40,11 +40,11 @@
         <h1></h1>
       </div>
 	  
-	  <a href="../pen.html" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+	  <a href="http://localhost:9763/shopClient/pen.jsp" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
 
 	  
 	  <div class="row">
-	    <img src="../dist/img/pen5.jpg" alt="Pen5">
+	    <img src="dist/img/pen5.jpg" alt="Pen5">
         <section class="col-sm-12">
           <table class="table table-bordered table-striped table-condensed">
             <caption>
@@ -83,6 +83,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../dist/js/bootstrap.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
   </body>
 </html>
