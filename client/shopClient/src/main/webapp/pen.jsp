@@ -39,7 +39,48 @@
       <div class="first_template">
         <h1>Your beautiful Pen</h1>
       </div>
-	  
+
+	 <p> test </p>
+
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
+
+        <p id="ok"></p>
+
+          <script>
+          var tab = new Array();
+
+          $.soap({
+              url: 'http://localhost:9763/services/Shop/',
+              namespaceURL:'http://shop.services.alma.org'
+          });
+
+          $.soap({
+              method: 'getProductsList',
+              data: {},
+              soap12: true,
+              success: function (soapResponse) {
+                  // do stuff with soapResponse
+                  console.log(soapResponse);
+                  console.log(soapResponse.toString());
+
+                  tab = soapResponse;
+                  document.getElementById("ok").innerHTML="marche !";
+              },
+              error: function (soapResponse) {
+                  console.log('that other server might be down...');
+                  console.log(soapResponse);
+                  console.log(soapResponse.toString());
+
+                  document.getElementById("ok").innerHTML="il ne marche pas !";
+              }
+          });
+
+
+
+          </script>
+
+	 <p> fin test </p>
 	  
 	 <section class="row">
         <div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/pen1.jsp"><img src="dist/img/images.jpg" alt="Pen1" ></a></div>
@@ -55,7 +96,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
   </body>
 </html>

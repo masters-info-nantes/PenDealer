@@ -73,16 +73,50 @@
         </section>
       </div> 
 	
-	<a href="#" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter</a>	  
-	    
+          <p id="ok"></p>
+
+          <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+          <script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
+
+          <script>
+                  $.soap({
+                      url: 'http://localhost:9763/services/Shop/',
+                      namespaceURL:'http://shop.services.alma.org'
+                  });
+                  function ajouter()
+                  {
+                    $.soap({
+                          method: 'addToCart',
+                          data: {productReference: 27854525},
+                          soap12: true,
+                          success: function (soapResponse) {
+                              // do stuff with soapResponse
+                              console.log(soapResponse);
+                              console.log(soapResponse.toString());
+
+                              document.getElementById("ok").innerHTML="c'est ajouter !";
+                          },
+                          error: function (soapResponse) {
+                              console.log('that other server might be down...');
+                              console.log(soapResponse);
+                              console.log(soapResponse.toString());
+
+                              document.getElementById("ok").innerHTML="ca ne marche pas !";
+                          }
+                      });
+                  }
+
+          </script>
+
+	<a href="#" class="btn btn-lg btn-primary" onclick="ajouter()"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter</a>
 
     </div><!-- /.container -->
+
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
   </body>
 </html>
