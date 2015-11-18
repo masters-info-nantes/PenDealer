@@ -27,14 +27,14 @@ public class Shop {
 		this.bank = new BankStub("http://localhost:9763/services/Bank/");
 
 		this.cart = new HashMap<>();		
-		this.eventStore = new EventStore();
+		//this.eventStore = new EventStore();
 	}
 
 	public String getProductDetails(String productReference) throws AxisFault, RemoteException {
 		GetProductDetails getCall = new GetProductDetails();
 		getCall.setProductReference(productReference);
 
-		this.eventStore.write("getProductDetails", productReference);
+		//this.eventStore.write("getProductDetails", productReference);
 
 		return this.supplier.getProductDetails(getCall).get_return();
 	}
@@ -54,7 +54,7 @@ public class Shop {
 
 		if(this.supplier.getProductAvailability(getCall).get_return() >= orderedQty){
 			this.cart.put(productReference, orderedQty);
-			this.eventStore.write("addToCart", productReference);	
+			//this.eventStore.write("addToCart", productReference);	
 					
 			return true;
 		}
@@ -67,7 +67,7 @@ public class Shop {
 
 		if(orderedQty != null){
 			this.cart.put(productReference, orderedQty - 1);
-			this.eventStore.write("removeFromCart", productReference);			
+			//this.eventStore.write("removeFromCart", productReference);			
 		}
 	}
 
@@ -113,7 +113,7 @@ public class Shop {
 	    	// TODO: Refund, cancel supplier command, what policy ?
 	    }
 			
-		this.eventStore.write("processOrder", String.valueOf(totalPrice));	
+		//this.eventStore.write("processOrder", String.valueOf(totalPrice));	
 
 	    return allProductOrdered;	    
 	}
