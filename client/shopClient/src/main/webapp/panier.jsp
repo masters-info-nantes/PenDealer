@@ -83,6 +83,15 @@
           </table>
         </section>
       </div>
+	  
+	  	<div class="row">
+			<div class="col-md-6"></div>
+			  <select>
+				  <option value="Euro">Euro(€)</option>
+				  <option value="Dollar">Dollar($)</option>
+			  </select>
+			<div class="col-md-5"></div>
+		</div>
 
           <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
           <script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
