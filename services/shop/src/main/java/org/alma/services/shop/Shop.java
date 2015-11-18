@@ -92,13 +92,21 @@ public class Shop {
 
 	public List<CartItem> GetCart(String currency) throws RemoteException {
 		List<CartItem> items = new ArrayList<CartItem>(this.cart.values());
+		List<CartItem> newList = new ArrayList<CartItem>();
 
 		for(CartItem item : items){
 			Product product = item.getProduct();
-			product.setPrice(convertPrice(product.getPrice(), currency));
+
+			Product newProduct = this.GetProduct(product.getReference());
+			newProduct.setPrice(convertPrice(product.getPrice(), currency));
+
+			CartItem cartItem = new CartItem(newProduct);
+			cartItem.setQuantity(item.getQuantity());
+
+			newList.add(cartItem);
 		}
 
-		return items;
+		return newList;
 	}
 	
 	public void RemoveFromCart(String productReference){
