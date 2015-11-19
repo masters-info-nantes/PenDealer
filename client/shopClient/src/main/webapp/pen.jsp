@@ -40,15 +40,15 @@
         <h1>Your beautiful Pen</h1>
       </div>
 
-	 <p> test </p>
+      <section class="row" id="pen"></section>
+
 
         <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery-xml2json/src/xml2json.js"></script>
         <script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
 
-        <p id="ok"></p>
-
           <script>
-          var tab = new Array();
+
 
           $.soap({
               url: 'http://localhost:9763/services/Shop/',
@@ -56,16 +56,30 @@
           });
 
           $.soap({
-              method: 'getProductsList',
+              method: 'GetProductsList',
               data: {},
               soap12: true,
               success: function (soapResponse) {
                   // do stuff with soapResponse
-                  console.log(soapResponse);
-                  console.log(soapResponse.toString());
+                  var tab = soapResponse.toJSON()["#document"]["ns:GetProductsListResponse"]["ns:return"];
 
-                  tab = soapResponse;
-                  document.getElementById("ok").innerHTML="marche !";
+                  var liste = '';
+                  var num;
+
+                  for(i=0;i<tab.length;i++)
+                  {
+/*
+                        document.write(tab[i]["reference"]["_"]+"\n");
+                        document.write(tab[i]["name"]["_"]+"\n");
+                        document.write(tab[i]["details"]["_"]+"\n");
+                        document.write(tab[i]["price"]["_"]+"\n\n");
+*/
+                        num = i+1;
+                        liste += '<div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/penDetail.jsp" onclick="sessionStorage.setItem(\'currentpen\',\'' + tab[i]["reference"]["_"] + '\');"><img src="dist/img/pen' + i + '.jpg" alt="Pen' + num + '" ></a></div>';
+
+                  }
+
+                  $("#pen").html(liste);
               },
               error: function (soapResponse) {
                   console.log('that other server might be down...');
@@ -80,16 +94,16 @@
 
           </script>
 
-	 <p> fin test </p>
-	  
+
+
+<!--
 	 <section class="row">
         <div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/pen1.jsp"><img src="dist/img/images.jpg" alt="Pen1" ></a></div>
         <div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/pen2.jsp"><img src="dist/img/pen2.jpg" alt="Pen2" ></a></div>
         <div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/pen3.jsp"><img src="dist/img/pen3.jpg" alt="Pen3" ></a></div>
         <div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/pen5.jsp"><img src="dist/img/pen5.jpg" alt="Pen5" ></a></div>
       </section>
-	    
-
+-->
     </div><!-- /.container -->
 
 

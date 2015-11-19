@@ -86,8 +86,8 @@
                   function ajouter()
                   {
                     $.soap({
-                          method: 'addToCart',
-                          data: {productReference: 27854525},
+                          method: 'AddToCart',
+                          data: {productReference: "RBP5"},
                           soap12: true,
                           success: function (soapResponse) {
                               // do stuff with soapResponse
