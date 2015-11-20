@@ -105,9 +105,10 @@
                     var tab = soapResponse.toJSON()["#document"]["ns:GetCartResponse"]["ns:return"];
                     var liste = '<tr><th>Name</th><th>Quantity</th><th>Price</th></tr>';
                     var totalPrice = 0;
-                    var chiffreBizarre = "ax2446";
 
                     for(i = 0; i < tab.length; i++){
+
+                        var chiffreBizarre = (tab[i]["$"]["xsi:type"].split(":"))[0];
 
                         liste += '<tr>' + '<td>' + tab[i][chiffreBizarre+":product"]["name"]["_"] + '</td>'
                                 + '<td>' + tab[i][chiffreBizarre+":quantity"] + '</td>'

@@ -98,10 +98,9 @@
                               console.log(soapResponse);
                               console.log(soapResponse.toJSON());
 
-                              var chiffreBizarre = "ax2447";
-
                               // do stuff with soapResponse
                               var pen = soapResponse.toJSON()["#document"]["ns:GetProductResponse"]["ns:return"];
+                              var chiffreBizarre = (pen["$"]["xsi:type"].split(":"))[0]; 
 
                               var details = '<img src="dist/img/' + pen[chiffreBizarre+":reference"] + '.jpg" alt="' + pen[chiffreBizarre+":name"] + '">' +
                                       '<section class="col-sm-12">' +
