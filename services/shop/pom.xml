@@ -32,30 +32,6 @@
     <build>
         <plugins>           
             <plugin>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
-                <version>${axis2_version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsdl2code</goal>
-                        </goals>
-                    </execution>
-                </executions>
-<!--                  <configuration>
-                    <outputDirectory>${basedir}/generated-sources</outputDirectory>
-                    <databindingName>adb</databindingName><portName>BankHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Bank?wsdl</wsdlFile>
-                </configuration>-->
-<!--                 <configuration>
-                    <outputDirectory>${basedir}/generated-sources</outputDirectory>
-                    <databindingName>adb</databindingName><portName>SupplierHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Supplier?wsdl</wsdlFile>
-                </configuration>-->
-                 <configuration>
-                    <outputDirectory>${basedir}/generated-sources</outputDirectory>
-                    <databindingName>adb</databindingName><portName>BourseHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Bourse?wsdl</wsdlFile>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.7</version>
@@ -95,7 +71,47 @@
                 </descriptorRefs>
               </configuration>
             </plugin>  
-          
+
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                <version>${axis2_version}</version>
+                <executions>
+                    <execution>
+                        <id>generate Supplier client</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wsdl2code</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/generated-sources</outputDirectory>
+                            <databindingName>adb</databindingName><portName>SupplierHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Supplier?wsdl</wsdlFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate bourse client</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wsdl2code</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/generated-sources</outputDirectory>
+                            <databindingName>adb</databindingName><portName>BourseHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Bourse?wsdl</wsdlFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate bank client</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wsdl2code</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/generated-sources</outputDirectory>
+                            <databindingName>adb</databindingName><portName>BankHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Bank?wsdl</wsdlFile>
+                        </configuration>
+                    </execution>
+                </executions>            
+            </plugin>
         </plugins>
     </build>
 
