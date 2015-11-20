@@ -75,7 +75,7 @@
                         document.write(tab[i]["price"]["_"]+"\n\n");
 */
                         num = i+1;
-                        liste += '<div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/penDetail.jsp" onclick="sessionStorage.setItem(\'currentpen\',\'' + tab[i]["reference"]["_"] + '\');"><img src="dist/img/pen' + i + '.jpg" alt="Pen' + num + '" ></a></div>';
+                        liste += '<div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/penDetail.jsp" onclick="sessionStorage.setItem(\'currentpen\',\'' + tab[i]["reference"]["_"] + '\');"><img src="dist/img/' + tab[i]["reference"]["_"] + '.jpg" alt="Pen' + num + '" ></a></div>';
 
                   }
 

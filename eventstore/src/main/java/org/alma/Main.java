@@ -16,4 +16,11 @@ public class Main {
 		EventStore store = new EventStore();
 		store.write("Main", "coucou");
 	}
+
+	public String service(){
+		EventStore store = new EventStore();
+		store.write("Main", "coucou");
+
+		return "done";
+	}
 }

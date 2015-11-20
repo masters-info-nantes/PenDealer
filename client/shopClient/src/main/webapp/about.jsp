@@ -25,10 +25,10 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
-  			    <li><a href="pen.html">Pen</a></li>
-            <li><a href="panier.html">Panier</a></li>
-  			    <li><a href="about.html">About</a></li>
+            <li class="active"><a href="http://localhost:9763/shopClient/index.jsp">Home</a></li>
+            <li><a href="http://localhost:9763/shopClient/pen.jsp">Pen</a></li>
+            <li><a href="http://localhost:9763/shopClient/panier.jsp">Panier</a></li>
+            <li><a href="http://localhost:9763/shopClient/about.jsp">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -81,6 +81,7 @@ public class Shop {
 		getCall.setProductReference(productReference);		
 
 		if(this.supplier.getProductAvailability(getCall).get_return() >= orderedQty){
+			item.addOne();
 			this.cart.put(productReference, item);
 			//this.eventStore.write("addToCart", productReference);	
 					

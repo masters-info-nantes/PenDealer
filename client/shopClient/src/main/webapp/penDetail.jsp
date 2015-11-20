@@ -21,7 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="inde.html">Pen Dealer</a>
+          <a class="navbar-brand" href="index.html">Pen Dealer</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -95,29 +95,33 @@
                           data: {productReference: ref},
                           soap12: true,
                           success: function (soapResponse) {
+                              console.log(soapResponse);
+                              console.log(soapResponse.toJSON());
+
+                              var chiffreBizarre = "ax2447";
 
                               // do stuff with soapResponse
                               var pen = soapResponse.toJSON()["#document"]["ns:GetProductResponse"]["ns:return"];
 
-                              var details = '<img src="dist/img/' + pen["ax2442:reference"] + '.jpg" alt="' + pen["ax2442:name"] + '">' +
+                              var details = '<img src="dist/img/' + pen[chiffreBizarre+":reference"] + '.jpg" alt="' + pen[chiffreBizarre+":name"] + '">' +
                                       '<section class="col-sm-12">' +
                                         '<table class="table table-bordered table-striped table-condensed">' +
                                           '<tbody>' +
                                             '<tr>' +
                                               '<td>Name</td>' +
-                                              '<td>' + pen["ax2442:name"] + '</td>' +
+                                              '<td>' + pen[chiffreBizarre+":name"] + '</td>' +
                                             '</tr>' +
                                             '<tr>' +
                                               '<td>Price</td>' +
-                                              '<td>' + pen["ax2442:price"] + '$</td>' +
+                                              '<td>' + pen[chiffreBizarre+":price"] + '$</td>' +
                                             '</tr>' +
                                             '<tr>' +
                                               '<td>Details</td>' +
-                                              '<td>' + pen["ax2442:details"] + '</td>' +
+                                              '<td>' + pen[chiffreBizarre+":details"] + '</td>' +
                                             '</tr>' +
                                             '<tr>' +
                                               '<td>References</td>' +
-                                              '<td>' + pen["ax2442:reference"] + '</td>' +
+                                              '<td>' + pen[chiffreBizarre+":reference"] + '</td>' +
                                             '</tr>' +
                                           '</tbody>' +
                                         '</table>' +
