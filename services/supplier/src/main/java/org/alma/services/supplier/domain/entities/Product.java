@@ -1,4 +1,4 @@
-package org.alma.services.supplier;
+package org.alma.services.supplier.domain.entities;
 
 /*
 	Product stocked by the supplier

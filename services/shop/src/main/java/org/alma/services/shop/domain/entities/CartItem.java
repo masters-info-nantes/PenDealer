@@ -1,6 +1,6 @@
-package org.alma.services.shop;
+package org.alma.services.shop.domain.entities;
 
-import org.alma.services.supplier.SupplierStub.*;
+import org.alma.services.supplier.domain.services.impl.SupplierStub.*;
 
 public class CartItem {
 
