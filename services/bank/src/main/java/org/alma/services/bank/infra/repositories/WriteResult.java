@@ -2,8 +2,8 @@ package org.alma.services.bank.infra.repositories;
 
 import akka.actor.Status;
 import akka.actor.UntypedActor;
-
-import eventstore.*;
+import eventstore.EsException;
+import eventstore.WriteEventsCompleted;
 
 /**
  * Created by jeremy on 23/11/15.

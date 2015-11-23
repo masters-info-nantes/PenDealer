@@ -7,22 +7,22 @@ import org.alma.services.bank.api.services.IDomainService;
  */
 public class Service implements IDomainService {
 
-    private int credit = 25;
+    private double credit = 25;
 
     // Transfer money to the account
-    public int CreditAccount(int amount){
+    public double CreditAccount(double amount){
         this.credit += amount;
         return this.credit;
     }
 
     // Consult the current credit
-    public int GetCredit(){
+    public double GetCredit(){
         return this.credit;
     }
 
     // Make an online payment
-    public boolean MakeOnlinePayment(int amount){
-        int remainingCredit = this.credit - amount;
+    public boolean MakeOnlinePayment(double amount){
+        double remainingCredit = this.credit - amount;
 
         if(remainingCredit >= 0){
             this.credit = remainingCredit;

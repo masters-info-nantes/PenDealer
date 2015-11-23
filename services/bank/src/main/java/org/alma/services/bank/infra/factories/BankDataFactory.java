@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by jeremy on 23/11/15.
  */
 public class BankDataFactory implements DataFactory {
-    public Data getData(String eventType, String credit) {
+    public Data getData(String eventType, double oldCredit, double newCredit) {
         Map<String, Object> fieldsMetadata = new HashMap<String, Object>();
 
         fieldsMetadata.put("timestamp", new DateTime(DateTimeZone.UTC).toString());
@@ -23,7 +23,8 @@ public class BankDataFactory implements DataFactory {
 
         Map<String, Object> fieldsData = new HashMap<String, Object>();
 
-        fieldsData.put("credit", credit);
+        fieldsData.put("oldCredit", oldCredit);
+        fieldsData.put("newCredit", newCredit);
 
         JSONObject data = new JSONObject(fieldsData);
 
