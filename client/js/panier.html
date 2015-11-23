@@ -21,14 +21,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Pen Dealer</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
-			      <li><a href="pen.html">Pen</a></li>
-            <li><a href="panier.html">Panier</a></li>
-			      <li><a href="about.html">About</a></li>
+				<a class="navbar-brand" href="index.html">Pen Dealer</a>
+		</div>
+			  <div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+						 <!--   <li class="active"><a href="index.html"></a></li> -->
+					<li><a href="panier.html">Panier</a></li>
+					<li><a href="about.html">About</a></li>
+				</ul>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -39,70 +39,139 @@
       <div class="first_template">
         <h1>Votre panier</h1>
       </div>
-	  
-	  
-	  <div class="row">
+    
+    
+    <div class="row">
         <section class="col-sm-12">
           <table class="table table-bordered table-striped table-condensed">
             <caption>
             <h4>Panier</h4>
             </caption>
          
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-				<th>Price</th>
-              </tr>
-              <tr>
-                <td></td>
-				<td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-				<td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-				<td></td>
-                <td></td>
-              </tr>
-			  <tr>
-                <td></td>
-				<td></td>
-                <td></td>
-              </tr>
-			  <tr>
-                <td>TOTAL :</td>
-				<td></td>
-                <td>$</td>
-              </tr>
+            <tbody id="panier">
+              
             </tbody>
           </table>
         </section>
       </div>
-	  
-
-	<div class="row">
-		<div class="col-md-6"></div>
-			  <select>
-				  <option value="Euro">Euro(€)</option>
-				  <option value="Dollar">Dollar($)</option>
-			  </select>
-		<div class="col-md-5"></div>
+    
+      <div class="row">
+      <div class="col-md-6"></div>
+        <select id="monnaie">
+          <option value="USD">Dollar (&dollar;)</option>          
+          <option value="EUR">Euro (&euro;)</option>
+          <option value="INR">Rupee (&#x20b9;)</option>
+          <option value="KRW">Won (&#8361; )</option>
+        </select>
+      <div class="col-md-5"></div>
     </div>
-	<a href="#" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Valider</a>
 
+          <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+          <script type="text/javascript" src="bower_components/jquery-xml2json/src/xml2json.js"></script>          
+          <script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
+
+          <script>
+
+          $("#monnaie").change(function(){
+              getCart(this.value);
+          });
+
+          function convertCurr(val){
+            var content = {
+              'EUR': "&euro;",
+              'USD': "&dollar;",
+              'KRW': "&#8361;",
+              'INR': "&#x20b9;"
+            };
+
+            return content[val];
+          }
+
+          function getCart(curr){
+            $.soap({
+                url: 'http://localhost:9763/services/Shop/',
+                namespaceURL:'http://shop.services.alma.org'
+            });
+
+            $.soap({
+                method: 'GetCart',
+                data: { currency: curr },
+                soap12: true,
+                success: function (soapResponse) {
+
+                    // do stuff with soapResponse
+                    console.log(soapResponse.toJSON());
+                                      
+                    var tab = soapResponse.toJSON()["#document"]["ns:GetCartResponse"]["ns:return"];
+                    var liste = '<tr><th>Name</th><th>Quantity</th><th>Price</th></tr>';
+                    var totalPrice = 0;
+
+                    for(i = 0; i < tab.length; i++){
+
+                        var chiffreBizarre = (tab[i]["$"]["xsi:type"].split(":"))[0];
+
+                        liste += '<tr>' + '<td>' + tab[i][chiffreBizarre+":product"]["name"]["_"] + '</td>'
+                                + '<td>' + tab[i][chiffreBizarre+":quantity"] + '</td>'
+                                + '<td>' + tab[i][chiffreBizarre+":totalPrice"] + ' ' + convertCurr(curr) + " (" + tab[i][chiffreBizarre+":product"]["price"]["_"] + ' unit)</td></tr>';
+
+                        totalPrice += parseInt(tab[i][chiffreBizarre+":totalPrice"]);
+                    }
+
+                    liste += '<tr><td>TOTAL :</td><td></td><td>' + totalPrice + ' ' + convertCurr(curr) + '</td></tr>';
+
+                    $("#panier").html(liste);                  
+                },
+                error: function (soapResponse) {
+                    console.log('that other server might be down...');
+                    console.log(soapResponse);
+                    console.log(soapResponse.toString());
+
+                    document.getElementById("ok").innerHTML="il ne marche pas !";
+                }
+            });
+          }
+
+          getCart("USD");
+
+          function valide()
+          {
+              $.soap({
+                url: 'http://localhost:9763/services/Shop/',
+                namespaceURL:'http://shop.services.alma.org'
+              }); 
+                         
+              $.soap({
+                  method: 'ProcessOrder',
+                  data: {},
+                  soap12: true,
+                  success: function (soapResponse) {
+                      // do stuff with soapResponse
+                      console.log(soapResponse);
+                      console.log(soapResponse.toString());
+
+                      document.getElementById("ok").innerHTML="valider !";
+                  },
+                  error: function (soapResponse) {
+                      console.log('that other server might be down...');
+                      console.log(soapResponse);
+                      console.log(soapResponse.toString());
+
+                      document.getElementById("ok").innerHTML="il ne marche pas !";
+                  }
+              });
+              }
+          </script>
+
+  <a href="#" class="btn btn-lg btn-primary" onclick="valide()"><span class="glyphicon glyphicon-arrow-right"></span> Valider</a>
 
     </div><!-- /.container -->
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
+
+
+
   </body>
 </html>
