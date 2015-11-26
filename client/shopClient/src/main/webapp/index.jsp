@@ -20,15 +20,14 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="#">Pen Dealer</a>
+    <a class="navbar-brand" href="index.html">Pen Dealer</a>
 </div>
-<div id="navbar" class="collapse navbar-collapse">
-<ul class="nav navbar-nav">
-<li class="active"><a href="#">Home</a></li>
-<li><a href="http://localhost:9763/shopClient/pen.jsp">Pen</a></li>
-<li><a href="http://localhost:9763/shopClient/panier.jsp">Panier</a></li>
-<li><a href="http://localhost:9763/shopClient/about.jsp">About</a></li>
-</ul>
+  <div id="navbar" class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+			 <!--   <li class="active"><a href="http://localhost:9763/shopClient/index.jsp"></a></li> -->
+		<li><a href="http://localhost:9763/shopClient/panier.jsp">Cart</a></li>
+		<li><a href="http://localhost:9763/shopClient/about.jsp">About</a></li>
+	</ul>
 </div><!--/.nav-collapse -->
 </div>
 </nav>
@@ -36,10 +35,92 @@
 <div class="container">
 
 <div class="first_template">
-<h1>Bienvenue sur PenDealer !</h1>
+<h1>Welcome !</h1>
 </div>
 
-</div><!-- /.container -->
+<section class="row" id="pen"></section>
+
+
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-xml2json/src/xml2json.js"></script>
+<script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
+
+<script>
+
+    console.log('1');
+    $.soap({
+        url: 'http://localhost:9763/services/Shop/',
+        namespaceURL:'http://shop.services.alma.org'
+    });
+
+       $.soap({
+            method: 'GetProductsList',
+            data: {},
+            soap12: true,
+            success: function (soapResponse) {
+                // do stuff with soapResponse
+                console.log('2');
+
+                var tab = soapResponse.toJSON()["#document"]["ns:GetProductsListResponse"]["ns:return"];
+                var liste = '<div class="inner">';
+                var num;
+
+                for(i=0;i<tab.length;i++)
+                {
+                  console.log('3:');
+                  console.log(i);
+                  num = i+1;
+                  //liste += '<div class="col-xs-4 col-sm-3 col-md-2"><a href="http://localhost:9763/shopClient/penDetail.jsp" onclick="sessionStorage.setItem(\'currentpen\',\'' + tab[i]["reference"]["_"] + '\');"><img src="dist/img/' + tab[i]["reference"]["_"] + '.jpg" alt="Pen' + num + '" ></a></div>';
+
+                    liste += '<div class="col-xs-4 col-sm-3 col-md-3">' +
+                                 '<div class="well" >' +
+                                      '<h3>' + tab[i]["name"]["_"] + '</h3>' +
+                                            '<img src="dist/img/' + tab[i]["reference"]["_"] + '.jpg"  alt="Pen' + num + '"/>' +
+                                                '<p><b>Price:</b> <b>$' + tab[i]["price"]["_"] + '</b></p>' +
+                                                      '<p><b>Detail:</b> color pen (red, purple)</p>' +
+                                                      '<p><input href="#" class="btn btn-block btn-primary btn-primary"' +
+                                                            'onClick="this.disabled=true;ajouter(' + tab[i]["reference"]["_"] + ')" value="&#x2795 Add"></input></p>' +
+                                 '</div>' +
+                              '</div>'
+                }
+                liste += '</div>'
+
+                $("#pen").html(liste);
+            },
+            error: function (soapResponse) {
+                console.log('that other server might be down...');
+                console.log(soapResponse);
+                console.log(soapResponse.toString());
+            }
+        });
+
+    console.log('4');
+
+     function ajouter(val){
+       $.soap({
+             method: 'AddToCart',
+             data: {productReference: ref},
+             soap12: true,
+             success: function (soapResponse) {
+                 // do stuff with soapResponse
+                 console.log(soapResponse);
+                 console.log(soapResponse.toString());
+                 console.log('5');
+             },
+             error: function (soapResponse) {
+                 console.log('that other server might be down...');
+                 console.log(soapResponse);
+                 console.log(soapResponse.toString());
+             }
+         });
+
+     }
+
+</script>
+
+
+
+
 
 
 <!-- Bootstrap core JavaScript

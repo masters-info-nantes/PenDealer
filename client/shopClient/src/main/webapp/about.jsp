@@ -21,14 +21,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Pen Dealer</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="http://localhost:9763/shopClient/index.jsp">Home</a></li>
-            <li><a href="http://localhost:9763/shopClient/pen.jsp">Pen</a></li>
-            <li><a href="http://localhost:9763/shopClient/panier.jsp">Panier</a></li>
-            <li><a href="http://localhost:9763/shopClient/about.jsp">About</a></li>
+				 <a class="navbar-brand" href="index.html">Pen Dealer</a>
+		</div>
+			  <div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+						 <!--   <li class="active"><a href="http://localhost:9763/shopClient/index.jsp"></a></li> -->
+					<li><a href="http://localhost:9763/shopClient/panier.jsp">Cart</a></li>
+					<li><a href="http://localhost:9763/shopClient/about.jsp">About</a></li>
+				</ul>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
