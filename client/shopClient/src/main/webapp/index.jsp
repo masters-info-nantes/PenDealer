@@ -40,7 +40,6 @@
 
 <section class="row" id="pen"></section>
 
-
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/jquery-xml2json/src/xml2json.js"></script>
 <script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
@@ -50,7 +49,7 @@
     console.log('1');
     $.soap({
         url: 'http://localhost:9763/services/Shop/',
-        namespaceURL:'http://shop.services.alma.org'
+        namespaceURL:'http://impl.services.domain.shop.services.alma.org'
     });
 
        $.soap({
@@ -77,9 +76,9 @@
                                       '<h3>' + tab[i]["name"]["_"] + '</h3>' +
                                             '<img src="dist/img/' + tab[i]["reference"]["_"] + '.jpg"  alt="Pen' + num + '"/>' +
                                                 '<p><b>Price:</b> <b>$' + tab[i]["price"]["_"] + '</b></p>' +
-                                                      '<p><b>Detail:</b> color pen (red, purple)</p>' +
+                                                      '<p><b>Detail:</b> ' + tab[i]["details"]["_"] + '</p>' +
                                                       '<p><input href="#" class="btn btn-block btn-primary btn-primary"' +
-                                                            'onClick="this.disabled=true;ajouter(' + tab[i]["reference"]["_"] + ')" value="&#x2795 Add"></input></p>' +
+                                                            'onClick="this.disabled=true;ajouter(\'' + tab[i]["reference"]["_"] + '\')" value="&#x2795 Add"></input></p>' +
                                  '</div>' +
                               '</div>'
                 }
@@ -96,7 +95,7 @@
 
     console.log('4');
 
-     function ajouter(val){
+     function ajouter(ref){
        $.soap({
              method: 'AddToCart',
              data: {productReference: ref},
@@ -126,7 +125,6 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="dist/js/bootstrap.min.js"></script>
 </body>
 </html>

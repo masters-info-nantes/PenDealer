@@ -94,7 +94,7 @@
           function getCart(curr){
             $.soap({
                 url: 'http://localhost:9763/services/Shop/',
-                namespaceURL:'http://shop.services.alma.org'
+                namespaceURL:'http://impl.services.domain.shop.services.alma.org'
             });
 
             $.soap({
@@ -171,7 +171,7 @@
           function valide(){
               $.soap({
                 url: 'http://localhost:9763/services/Shop/',
-                namespaceURL:'http://shop.services.alma.org'
+                namespaceURL:'http://impl.services.domain.shop.services.alma.org'
               }); 
                          
               $.soap({
