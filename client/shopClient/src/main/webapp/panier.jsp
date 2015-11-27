@@ -94,7 +94,8 @@
           function getCart(curr){
             $.soap({
                 url: 'http://localhost:9763/services/Shop/',
-                namespaceURL:'http://impl.services.domain.shop.services.alma.org'
+                //namespaceURL:'http://impl.services.domain.shop.services.alma.org'
+                namespaceURL:'http://shop.services.alma.org'
             });
 
             $.soap({
@@ -121,8 +122,8 @@
                         liste += '<tr>'
                                     + '<td>' + tab[i][chiffreBizarre+":product"]["name"]["_"] + '</td>'
                                     + '<td>' + '<input type="number" name="howmuch" value ="' + tab[i][chiffreBizarre+":quantity"] + '" min = "1" />' + '</td>'
-                                    + '<td>' + tab[i][chiffreBizarre+":totalPrice"] + ' ' + convertCurr(curr) + " (" + tab[i][chiffreBizarre+":product"]["price"]["_"] + ' unit)</td>'
-								    + '<td> <id="'+ tab[i][chiffreBizarre +":product"]["reference"]+'"><button class="btn btn-block btn-primary btn-primary" onclick="supprimer(' + [chiffreBizarre +":product"]["reference"] + ')" ><span class="glyphicon glyphicon-minus"></span> Supprimer</button></td>'
+                                    + '<td>' + Math.round(tab[i][chiffreBizarre+":totalPrice"]*100)/100 + ' ' + convertCurr(curr) + " (" + Math.round(tab[i][chiffreBizarre+":product"]["price"]["_"]*100)/100 + ' /unit)</td>'
+								    + '<td> <id="'+ tab[i][chiffreBizarre +":product"]["reference"]["_"]+'"><button class="btn btn-block btn-primary btn-primary" onclick="supprimer(\'' + tab[i][chiffreBizarre +":product"]["reference"]["_"] + '\')" ><span class="glyphicon glyphicon-minus"></span> Supprimer</button></td>'
 								+'</tr>';
 
                         totalPrice += parseInt(tab[i][chiffreBizarre+":totalPrice"]);
@@ -132,6 +133,8 @@
 
                     $("#panier").html(liste);
                     console.log('2');
+                    console.log(tab[0][chiffreBizarre +":product"]["reference"]["_"]);
+
                 },
                 error: function (soapResponse) {
                     console.log('that other server might be down...');
@@ -151,7 +154,7 @@
                   data: { productReference: ref },
                   soap12: true,
                   success: function (soapResponse) {
-                      console.log('4');
+                      console.log('reussir remove from cart');
                   },
                   error: function (soapResponse) {
                       console.log('removeFromCart might be down...');
@@ -162,10 +165,11 @@
 
 
           function supprimer(val){
-                console.log("5");
+                console.log("supprimer commence");
+                console.log(val);
                 removeFromCart(val);
                 getCart("USD");
-                console.log('in supprimer');
+                console.log('supprimer fin');
           }
 
           function valide(){

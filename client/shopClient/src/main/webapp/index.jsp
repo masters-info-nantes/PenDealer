@@ -49,7 +49,8 @@
     console.log('1');
     $.soap({
         url: 'http://localhost:9763/services/Shop/',
-        namespaceURL:'http://impl.services.domain.shop.services.alma.org'
+        //namespaceURL:'http://impl.services.domain.shop.services.alma.org'
+        namespaceURL:'http://shop.services.alma.org'
     });
 
        $.soap({
@@ -74,11 +75,11 @@
                     liste += '<div class="col-xs-4 col-sm-3 col-md-3">' +
                                  '<div class="well" >' +
                                       '<h3>' + tab[i]["name"]["_"] + '</h3>' +
-                                            '<img src="dist/img/' + tab[i]["reference"]["_"] + '.jpg"  alt="Pen' + num + '"/>' +
+                                            '<img style="max-width:225px" src="dist/img/' + tab[i]["reference"]["_"] + '.jpg"  alt="Pen' + num + '"/>' +
                                                 '<p><b>Price:</b> <b>$' + tab[i]["price"]["_"] + '</b></p>' +
                                                       '<p><b>Detail:</b> ' + tab[i]["details"]["_"] + '</p>' +
                                                       '<p><input href="#" class="btn btn-block btn-primary btn-primary"' +
-                                                            'onClick="this.disabled=true;ajouter(\'' + tab[i]["reference"]["_"] + '\')" value="&#x2795 Add"></input></p>' +
+                                                            'onClick="ajouter(\'' + tab[i]["reference"]["_"] + '\')" value="&#x2795 Add"></input></p>' +
                                  '</div>' +
                               '</div>'
                 }
