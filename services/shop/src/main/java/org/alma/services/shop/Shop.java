@@ -110,17 +110,17 @@ public class Shop {
 		return newList;
 	}
 	
-	public void RemoveFromCart(String productReference){
+	public int RemoveFromCart(String productReference){
 		CartItem item = this.cart.get(productReference);
+		item.removeOne();
 
-		if(item.getQuantity() > 1){
-			item.removeOne();			
-		}
-		else {
-			this.cart.remove(item);
+		if(item.getQuantity() <= 0){
+			this.cart.remove(productReference);			
 		}
 
 		//this.eventStore.write("removeFromCart", productReference);
+
+		return item.getQuantity();
 	}
 
 	public boolean ProcessOrder() throws AxisFault, RemoteException {
