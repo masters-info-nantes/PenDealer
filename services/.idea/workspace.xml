@@ -84,7 +84,7 @@
       <file leaf-file-name="index.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../client/shopClient/src/main/webapp/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.5474453">
+            <state vertical-scroll-proportion="3.4215329">
               <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
               <folding />
             </state>
@@ -95,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/../client/shopClient/src/main/webapp/about.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
+              <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -139,9 +139,9 @@
         <option value="$PROJECT_DIR$/../client/shopClient/src/main/webapp/penDetail.jsp" />
         <option value="$PROJECT_DIR$/../client/js/index.html" />
         <option value="$PROJECT_DIR$/../../pen.jsp" />
-        <option value="$PROJECT_DIR$/../client/shopClient/src/main/webapp/about.jsp" />
         <option value="$PROJECT_DIR$/../client/shopClient/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/../client/shopClient/src/main/webapp/panier.jsp" />
+        <option value="$PROJECT_DIR$/../client/shopClient/src/main/webapp/about.jsp" />
       </list>
     </option>
   </component>
@@ -648,14 +648,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../client/shopClient/src/main/webapp/about.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../client/shopClient/src/main/webapp/panier.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-17.777779">
@@ -664,9 +656,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../client/shopClient/src/main/webapp/about.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../client/shopClient/src/main/webapp/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5474453">
+        <state vertical-scroll-proportion="3.4215329">
           <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
           <folding />
         </state>

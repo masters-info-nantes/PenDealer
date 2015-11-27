@@ -40,7 +40,7 @@
         <h1>About us</h1>
       </div>
 	  
-	  Projet de Service réalisé par Bao Ran, Bardon Jérémy et Bobin Manon en novembre 2015.
+	  Projet de Service r&eacute;alis&eacute; par Bao Ran, Bardon J&eacute;r&eacute;my et Bobin Manon en novembre 2015.
 
     </div><!-- /.container -->
 
