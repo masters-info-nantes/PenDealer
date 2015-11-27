@@ -65,6 +65,8 @@
                 var liste = '<div class="inner">';
                 var num;
 
+                console.log(tab[0]);
+
                 for(i=0;i<tab.length;i++)
                 {
                   console.log('3:');
@@ -76,10 +78,12 @@
                                  '<div class="well" >' +
                                       '<h3>' + tab[i]["name"]["_"] + '</h3>' +
                                             '<img style="max-width:225px" src="dist/img/' + tab[i]["reference"]["_"] + '.jpg"  alt="Pen' + num + '"/>' +
-                                                '<p><b>Price:</b> <b>$' + tab[i]["price"]["_"] + '</b></p>' +
-                                                      '<p><b>Detail:</b> ' + tab[i]["details"]["_"] + '</p>' +
-                                                      '<p><input href="#" class="btn btn-block btn-primary btn-primary"' +
-                                                            'onClick="ajouter(\'' + tab[i]["reference"]["_"] + '\')" value="&#x2795 Add"></input></p>' +
+                                            '<p><b>Price:</b> <b>$' + tab[i]["price"]["_"] + '</b></p>' +
+                                            '<p><b>Detail:</b> ' + tab[i]["details"]["_"] + '</p>' +
+                                            '<p><b>Quantity: </b><input id="num'+ tab[i]["reference"]["_"] + '" type="number" value ="0" min = "1" /></br></p>'+
+                                            '<p><input href="#" class="btn btn-block btn-primary btn-primary"' +
+                                                    'onClick="addNum(\'' + tab[i]["reference"]["_"] + '\', $(\'#num' + tab[i]["reference"]["_"] + '\').val())" value="&#x2795 Add"></input></p>' +
+                                                    //'onClick="ajouter(\'' + tab[i]["reference"]["_"] + '\')" value="&#x2795 Add"></input></p>' +
                                  '</div>' +
                               '</div>'
                 }
@@ -96,7 +100,18 @@
 
     console.log('4');
 
-     function ajouter(ref){
+    function addNum(ref,val){
+        console.log('addNum');
+        console.log('val: ');
+        console.log(val);
+
+            console.log("addNum for: ")
+            console.log(i);
+            ajouter(ref, val);
+
+    }
+
+     function ajouter(ref, val){
        $.soap({
              method: 'AddToCart',
              data: {productReference: ref},
@@ -105,12 +120,17 @@
                  // do stuff with soapResponse
                  console.log(soapResponse);
                  console.log(soapResponse.toString());
-                 console.log('5');
+                 console.log('add to cart');
+
+                 if(val >1) {
+                 ajouter(ref,val-1)
+                 }
              },
              error: function (soapResponse) {
                  console.log('that other server might be down...');
                  console.log(soapResponse);
                  console.log(soapResponse.toString());
+
              }
          });
 

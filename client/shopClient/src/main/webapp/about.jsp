@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     
     <link rel="icon" href="dist/img/favicon.ico">
     <title>PenDealer</title>

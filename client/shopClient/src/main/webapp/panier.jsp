@@ -114,22 +114,24 @@
                     var totalPrice = 0;
 
                     console.log('1');
+                    console.log(tab[0]);
 
                     for(i = 0; i < tab.length; i++){
 
                         var chiffreBizarre = (tab[i]["$"]["xsi:type"].split(":"))[0];
+                        console.log(chiffreBizarre);
 
                         liste += '<tr>'
                                     + '<td>' + tab[i][chiffreBizarre+":product"]["name"]["_"] + '</td>'
                                     + '<td>' + '<input type="number" name="howmuch" value ="' + tab[i][chiffreBizarre+":quantity"] + '" min = "1" />' + '</td>'
                                     + '<td>' + Math.round(tab[i][chiffreBizarre+":totalPrice"]*100)/100 + ' ' + convertCurr(curr) + " (" + Math.round(tab[i][chiffreBizarre+":product"]["price"]["_"]*100)/100 + ' /unit)</td>'
-								    + '<td> <id="'+ tab[i][chiffreBizarre +":product"]["reference"]["_"]+'"><button class="btn btn-block btn-primary btn-primary" onclick="supprimer(\'' + tab[i][chiffreBizarre +":product"]["reference"]["_"] + '\')" ><span class="glyphicon glyphicon-minus"></span> Supprimer</button></td>'
-								+'</tr>';
+								    + '<td> <id="'+ tab[i][chiffreBizarre +":product"]["reference"]["_"] + '"><button class="btn btn-block btn-primary btn-primary" onclick="supprimer(\'' + tab[i][chiffreBizarre +":product"]["reference"]["_"] + '\')" ><span class="glyphicon glyphicon-minus"></span> Supprimer</button></td>'
+							   + '</tr>';
 
-                        totalPrice += parseInt(tab[i][chiffreBizarre+":totalPrice"]);
+                        totalPrice += parseFloat(tab[i][chiffreBizarre+":totalPrice"]);
                     }
 
-                    liste += '<tr><td>TOTAL :</td><td></td><td>' + totalPrice + ' ' + convertCurr(curr) + '</td><td></td></tr>';
+                    liste += '<tr><td>TOTAL :</td><td></td><td>' + Math.round(totalPrice*100)/100 + ' ' + convertCurr(curr) + '</td><td></td></tr>';
 
                     $("#panier").html(liste);
                     console.log('2');
